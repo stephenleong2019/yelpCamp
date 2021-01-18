@@ -31,11 +31,10 @@ app.get('/', (req, res) => {
     res.render('home/home');
 });
 
-app.post('/campground', (req, res) => {
+app.get('/campground', async (req, res) => {
 
-    const camp = new Campground(req.body);
+    const campgrounds = await Campground.find({});
 
-    camp.save();
 
-    res.send(camp);
+    res.render('campgrounds/index', {campgrounds})
 })
