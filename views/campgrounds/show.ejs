@@ -8,7 +8,13 @@
     <title>Document</title>
 </head>
 <body>
-<h1><%=campground.title%></h1>
-<h2><%=campground.location%></h2>
+<main>
+    <h1><%=campground.title%></h1>
+    <h2><%=campground.location%></h2>
+    <a href="/campgrounds/<%=campground._id%>/edit">Edit</a>
+</main>
+<footer>
+    <a href="/campgrounds">All Campgrounds</a>
+</footer>
 </body>
 </html>
