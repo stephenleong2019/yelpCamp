@@ -1,0 +1,18 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <%- include('../partial/head.ejs') %>
+</head>
+<body class="d-flex flex-column vh-100">
+<header class="sticky-top">
+    <%- include('../partial/navbar.ejs') %>
+</header>
+<main class="container mt-5">
+    <%- body %>
+</main>
+<footer class="footer bg-dark py-3 mt-auto">
+    <%- include('../partial/footer.ejs') %>
+    <%- include('../partial/bootstrap-script.ejs') %>
+</footer>
+</body>
+</html>
