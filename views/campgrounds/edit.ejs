@@ -2,21 +2,33 @@
 <div class="row">
     <h1 class="text-center">Edit Campground</h1>
     <div class="col-6 offset-3 shadow-lg p-3 mb-5 bg-white rounded-3">
-        <form class="d-inline" action="/campgrounds/<%= campground._id %>?_method=PATCH" method="POST">
+        <form class="d-inline validated-form"
+                action="/campgrounds/<%= campground._id %>?_method=PATCH"
+                method="POST"
+                novalidate>
             <div class="mb-3">
                 <label class="form-label" for="title">Title</label>
                 <input class="form-control"
                         type="text"
                         id="title"
                         name="campground[title]"
-                        value="<%= campground.title %>">
+                        value="<%= campground.title %>" required>
+                <div class="valid-feedback">OK</div>
+                <div id="titleValidation" class="invalid-feedback">
+                    Please enter the title.
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="price">Price</label>
                 <div class="input-group mb-3">
-                    <span class="input-group-text" id="price-label"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cash-stack" viewBox="0 0 16 16">
-  <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/>
-  <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z"/>
+                    <span class="input-group-text" id="price-label"><svg xmlns="http://www.w3.org/2000/svg"
+                                width="16"
+                                height="16"
+                                fill="currentColor"
+                                class="bi bi-cash-stack"
+                                viewBox="0 0 16 16">
+  <path d="M1 3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1H1zm7 8a2 2 0 1 0 0-4 2 2 0 0 0 0 4z" />
+  <path d="M0 5a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V5zm3 0a2 2 0 0 1-2 2v4a2 2 0 0 1 2 2h10a2 2 0 0 1 2-2V7a2 2 0 0 1-2-2H3z" />
 </svg></span>
                     <input type="number"
                             class="form-control"
@@ -26,7 +38,11 @@
                             aria-describedby="price-label"
                             step="0.01"
                             name="campground[price]"
-                            value="<%= campground.price %>">
+                            value="<%= campground.price %>" required>
+                    <div class="valid-feedback">OK</div>
+                    <div id="priceValidation" class="invalid-feedback">
+                        Please enter the price.
+                    </div>
                     <span class="input-group-text">/ day</span>
                 </div>
             </div>
@@ -34,6 +50,10 @@
                 <label class="form-label" for="location">Location</label>
                 <input class="form-control" type="text" id="location" name="campground[location]"
                         value="<%= campground.location %>">
+                <div class="valid-feedback">OK</div>
+                <div id="locationValidation" class="invalid-feedback">
+                    Please enter the location.
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="description">Description</label>
@@ -42,9 +62,11 @@
                         id="description"
                         name="campground[description]"
                         cols="30"
-                        rows="4">
-                    <%= campground.description %>
-                </textarea>
+                        rows="4" required><%= campground.description %></textarea>
+                <div class="valid-feedback">OK</div>
+                <div id="descriptionValidation" class="invalid-feedback">
+                    Please enter the description.
+                </div>
             </div>
             <div class="mb-3">
                 <label class="form-label" for="image">Image</label>
@@ -52,14 +74,15 @@
                         type="text"
                         id="image"
                         name="campground[image]"
-                        value="<%= campground.image %>">
+                        value="<%= campground.image %>" required>
+                <div class="valid-feedback">OK</div>
+                <div id="imageValidation" class="invalid-feedback">
+                    Please enter the image URL.
+                </div>
             </div>
             <button class="btn btn-info text-white">Save</button>
         </form>
         <a href="/campgrounds/<%= campground._id %>" class="btn btn-danger text-white">Cancel</a>
     </div>
 </div>
-
-
-
 
