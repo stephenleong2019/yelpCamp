@@ -16,6 +16,9 @@ const CamgroundSchema = new Schema({
     location: {
         type: String,
         required: true
+    },
+    image:{
+        type: String
     }
 });
 
