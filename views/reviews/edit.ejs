@@ -1,0 +1,44 @@
+<% for (let review of campground.reviews){ %>
+<div class="border border-info card shadow-sm p-3 mb-5 bg-white rounded">
+    <div class="card-body">
+        <h5 class="card-title">User</h5>
+        <hr>
+        <% if (review._id == reviewID){ %>
+            <form class="validated-form"
+                    action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=PATCH"
+                    method="POST"
+                    novalidate>
+                <div class="mb-3">
+                    <label for="rating">Rating: </label>
+                    <input class="form-range"
+                            id="rating"
+                            name="review[rating]"
+                            value="<%= review.rating %>"
+                            type="range"
+                            min="1"
+                            max="5" required>
+                </div>
+                <div class="mb-3">
+                    <label for="body">Review: </label>
+                    <textarea name="review[body]"
+                            id="body"
+                            cols="30"
+                            rows="2"
+                            class="form-control" required><%= review.body %></textarea>
+                    <div class="valid-feedback">
+                        Thanks!
+                    </div>
+                    <div class="invalid-feedback">
+                        Please leave your thought about the camp!
+                    </div>
+                </div>
+                <button class="btn btn-info text-white mt-2">Save</button>
+            </form>
+        <% } else { %>
+            <h6 class="card-subtitle mb-2 text-muted">Rating: <%= review.rating %></h6>
+            <p class="card-text">Review: <%= review.body %></p>
+        <% } %>
+
+    </div>
+</div>
+<% } %>

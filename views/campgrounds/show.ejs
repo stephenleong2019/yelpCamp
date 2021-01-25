@@ -1,7 +1,7 @@
 <% layout('layouts/boilerplate') %>
 <div class="row">
-    <div class="col-6 offset-3">
-        <div class="card shadow-lg p-3 mb-5 bg-white rounded">
+    <div class="col-6">
+        <div class="border border-warning card shadow-lg p-3 mb-5 bg-white rounded">
             <img src="<%= campground.image %>"
                     class="card-img-top"
                     alt="https://uxdesign.cc/how-to-design-a-404-error-page-that-keeps-users-on-your-site-f3443a980ece">
@@ -43,5 +43,11 @@
             </div>
             <div class="card-footer text-muted"> 2 days ago</div>
         </div>
+
+    </div>
+    <div class="col-6">
+        <%- include('../reviews/new.ejs') %>
+
+        <%- include('../reviews/index.ejs') %>
     </div>
 </div>
