@@ -8,12 +8,13 @@
     <%- include('../partial/navbar.ejs') %>
 </header>
 <main class="container mt-5">
+    <%- include('../partial/flash.ejs') %>
     <%- body %>
 </main>
 <footer class="footer bg-dark py-3 mt-auto">
     <%- include('../partial/footer.ejs') %>
     <%- include('../partial/bootstrap-script.ejs') %>
-    <%- include('../partial/validation-script.ejs') %>
+    <script src="/javascripts/validateForm.js"></script>
 </footer>
 </body>
 </html>
