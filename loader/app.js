@@ -6,11 +6,15 @@ const ejsMate = require('ejs-mate');
 const methodOverride = require('method-override');
 const session = require('express-session');
 const flash = require('connect-flash');
+const passport = require('passport');
+const LocalStrategy = require('passport-local');
 
 // custom class
 const ExpressError = require('../utils/ExpressError');
-const campgroundRoute = require('../routes/campground');
-const reviewRoute = require('../routes/review');
+const User = require('../models/user');
+const campgroundRoutes = require('../routes/campground');
+const reviewRoutes = require('../routes/review');
+const userRoutes = require('../routes/user');
 
 const app = express();
 
@@ -36,15 +40,20 @@ app.listen(8080, () => {
   console.log('Server Start, port 8080');
 });
 
+// set ejs as view engine
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
+// let route accept json format
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+// override some post route to patch, delete, put or etc
 app.use(methodOverride('_method'));
+// set public folder, then the template can get the stuff in public by default
 app.use(express.static(path.join(__dirname, '../public')));
+// use flash
 app.use(flash());
-
+// local session setup
 const sessionConfig = {
   secret: 'secret',
   resave: false,
@@ -56,9 +65,25 @@ const sessionConfig = {
   },
 };
 app.use(session(sessionConfig));
+// setup passport, set passport session config after local session config
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 
-app.use('/campgrounds', campgroundRoute);
-app.use('/campgrounds/:campgroundID/reviews', reviewRoute);
+
+app.use((req, res, next) => {
+  res.locals.success = req.flash('success');
+  res.locals.error = req.flash('error');
+  res.locals.currentUser = req.user;
+  next();
+});
+// setup route
+app.use('/campgrounds', campgroundRoutes);
+app.use('/campgrounds/:campgroundID/reviews', reviewRoutes);
+app.use('/', userRoutes);
+
 
 app.get('/', (req, res) => {
 
