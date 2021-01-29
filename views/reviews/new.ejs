@@ -1,33 +1,37 @@
-<div class="border border-danger mb-3 shadow-lg p-3 mb-5 bg-white rounded">
-    <h2>Leave a review</h2>
-    <form action="/campgrounds/<%= campground.id %>/reviews"
-            method="POST"
-            class="validated-form"
-            novalidate>
-        <div class="mb-3">
-            <label for="rating">Rating</label>
-            <input type="range"
-                    class="form-range"
-                    min="1"
-                    max="5"
-                    name="review[rating]"
-                    id="rating" required>
-        </div>
-        <div class="mb-3">
-            <label for="body">Review</label>
-            <textarea name="review[body]"
-                    id="body"
-                    cols="30"
-                    rows="5"
-                    class="form-control" required></textarea>
-            <div class="valid-feedback">
-                Thanks!
-            </div>
-            <div class="invalid-feedback">
-                Please leave your thought about the camp!
-            </div>
-        </div>
+<% if (currentUser) { %>
 
-        <button class="btn btn-info text-white">Submit</button>
-    </form>
-</div>
+    <div class="border border-danger mb-3 shadow-lg p-3 mb-5 bg-white rounded">
+        <h2>Leave a review</h2>
+        <form action="/campgrounds/<%= campground.id %>/reviews"
+                method="POST"
+                class="validated-form"
+                novalidate>
+            <div class="mb-3">
+                <label for="rating">Rating</label>
+                <input type="range"
+                        class="form-range"
+                        min="1"
+                        max="5"
+                        name="review[rating]"
+                        id="rating" required>
+            </div>
+            <div class="mb-3">
+                <label for="body">Review</label>
+                <textarea name="review[body]"
+                        id="body"
+                        cols="30"
+                        rows="5"
+                        class="form-control" required></textarea>
+                <div class="valid-feedback">
+                    Thanks!
+                </div>
+                <div class="invalid-feedback">
+                    Please leave your thought about the camp!
+                </div>
+            </div>
+
+            <button class="btn btn-info text-white">Submit</button>
+        </form>
+    </div>
+<% } %>
+

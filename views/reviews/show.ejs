@@ -1,18 +1,21 @@
-
 <% for (let review of campground.reviews){ %>
     <div class="border border-info card shadow-sm p-3 mb-5 bg-white rounded">
         <div class="card-body">
-            <h5 class="card-title">User</h5>
+            <h5 class="card-title text-capitalize"><%= review.author.username %></h5>
             <hr>
             <h6 class="card-subtitle mb-2 text-muted">Rating: <%= review.rating %></h6>
             <p class="card-text">Review: <%= review.body %></p>
-            <a href="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>/edit"
-                    class="card-link btn btn-info text-white">Update</a>
-            <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
-                    method="POST"
-                    class="d-inline">
-                <button class="btn btn-danger">Delete</button>
-            </form>
+            <% if(currentUser && currentUser.equals(review.author)) { %>
+
+                <a href="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>/edit"
+                        class="card-link btn btn-info text-white">Update</a>
+                <form action="/campgrounds/<%= campground._id %>/reviews/<%= review._id %>?_method=DELETE"
+                        method="POST"
+                        class="d-inline">
+                    <button class="btn btn-danger">Delete</button>
+                </form>
+            <% } %>
+
         </div>
     </div>
 <% } %>

@@ -2,25 +2,22 @@ const express = require('express');
 const catchAsync = require('../utils/catchAsync');
 const Campground = require('../models/campground');
 const { validateCampground } = require('../validations/campgrounds/campgroundValidation');
+const {
+  isLoggedIn,
+  isAuthor,
+} = require('../utils/authMiddleware');
 
 const router = express.Router();
 
-// middleware
-router.use((req, res, next) => {
-  res.locals.success = req.flash('success');
-  res.locals.error = req.flash('error');
-  next();
-});
-
 //route
-router.get('/', catchAsync(async (req, res, next) => {
+router.get('/', catchAsync(async (req, res) => {
 
   const campgrounds = await Campground.find({});
 
   res.render('campgrounds/index', { campgrounds });
 }));
 
-router.get('/new', (req, res, next) => {
+router.get('/new', isLoggedIn, (req, res) => {
 
   res.render('campgrounds/new');
 });
@@ -29,7 +26,12 @@ router.get('/:id', catchAsync(async (req, res, next) => {
 
   const { id } = req.params;
 
-  const campground = await Campground.findById(id).populate('reviews');
+  const campground = await Campground.findById(id).populate({
+    path: 'reviews',
+    populate: {
+      path: 'author',
+    },
+  }).populate('author');
 
   if (!campground) {
 
@@ -45,7 +47,7 @@ router.get('/:id', catchAsync(async (req, res, next) => {
     });
 }));
 
-router.get('/:id/edit', catchAsync(async (req, res, next) => {
+router.get('/:id/edit', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
 
   const { id } = req.params;
 
@@ -54,9 +56,10 @@ router.get('/:id/edit', catchAsync(async (req, res, next) => {
   res.render('campgrounds/edit', { campground });
 }));
 
-router.post('/', validateCampground, catchAsync(async (req, res, next) => {
+router.post('/', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
 
   const campground = new Campground(req.body.campground);
+  campground.author = req.user._id;
   await campground.save();
 
   req.flash('success', 'Campground is added');
@@ -64,20 +67,26 @@ router.post('/', validateCampground, catchAsync(async (req, res, next) => {
   res.redirect(`/campgrounds/${campground._id}`);
 }));
 
-router.patch('/:id', validateCampground, catchAsync(async (req, res, next) => {
+router.patch(
+  '/:id',
+  isLoggedIn,
+  isAuthor,
+  validateCampground,
+  catchAsync(async (req, res) => {
 
-  const { id } = req.params;
-  const campground = await Campground.findByIdAndUpdate(
-    id,
-    { ...req.body.campground },
-    { new: true });
+    const { id } = req.params;
 
-  req.flash('success', 'Campground is updated');
+    const campground = await Campground.findByIdAndUpdate(
+      id,
+      { ...req.body.campground },
+      { new: true });
 
-  res.redirect(`/campgrounds/${campground._id}`);
-}));
+    req.flash('success', 'Campground is updated');
 
-router.delete('/:id', catchAsync(async (req, res, next) => {
+    res.redirect(`/campgrounds/${campground._id}`);
+  }));
+
+router.delete('/:id', isLoggedIn, isAuthor, catchAsync(async (req, res) => {
 
   const { id } = req.params;
   await Campground.findByIdAndDelete(id);
