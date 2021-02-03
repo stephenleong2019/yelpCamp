@@ -1,10 +1,19 @@
 <% layout('layouts/boilerplate') %>
-<h1>Login</h1>
-<hr>
-<form action="/login" method="POST" class="validated-form" novalidate>
-    <div class="mb-3 col-3">
-        <label class="form-label" for="username">Username</label>
-        <div class="input-group mb-3">
+
+<div class="container d-flex justify-content-center align-items-center mt-5">
+    <div class="row">
+        <div class="col-md-6 offset-md-3 col-xl-4 offset-xl-4">
+            <div class="card shadow">
+                <img src="https://images.unsplash.com/photo-1501707305551-9b2adda5e527?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1335&q=80"
+                        alt=""
+                        class="card-img-top img-thumbnail">
+                <div class="card-body">
+                    <h5>Login</h5>
+                    <hr>
+                    <form action="/login" method="POST" class="validated-form" novalidate>
+                        <div class="mb-3 col-12">
+                            <label class="form-label" for="username">Username</label>
+                            <div class="input-group mb-3">
                     <span class="input-group-text" id="price-label"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="16"
                                 height="16"
@@ -14,34 +23,35 @@
   <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
   <path d="M2 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2zm12 1a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1v-1c0-1-1-4-6-4s-6 3-6 4v1a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1h12z" />
 </svg></span>
-            <input type="text"
-                    class="form-control"
-                    placeholder="username"
-                    id="username"
-                    aria-label="username"
-                    aria-describedby="username-label"
-                    name="username" required>
-            <div class="valid-feedback">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        class="bi bi-person-check-fill"
-                        viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                            d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-            </div>
-            <div id="priceValidation" class="invalid-feedback">
-                invalid username
-            </div>
-        </div>
-    </div>
+                                <input type="text"
+                                        class="form-control"
+                                        placeholder="username"
+                                        id="username"
+                                        aria-label="username"
+                                        aria-describedby="username-label"
+                                        name="username" autofocus
+                                        required>
+                                <div class="valid-feedback">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            class="bi bi-person-check-fill"
+                                            viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                                d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </div>
+                                <div id="priceValidation" class="invalid-feedback">
+                                    invalid username
+                                </div>
+                            </div>
+                        </div>
 
-    <div class="mb-3 col-3">
-        <label class="form-label" for="password">Password</label>
-        <div class="input-group mb-3">
+                        <div class="mb-3 col-12">
+                            <label class="form-label" for="password">Password</label>
+                            <div class="input-group mb-3">
                     <span class="input-group-text" id="price-label"><svg xmlns="http://www.w3.org/2000/svg"
                                 width="16"
                                 height="16"
@@ -50,31 +60,37 @@
                                 viewBox="0 0 16 16">
   <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z" />
 </svg></span>
-            <input type="password"
-                    class="form-control"
-                    placeholder="password"
-                    id="password"
-                    aria-label="password"
-                    aria-describedby="password-label"
-                    name="password" required>
-            <div class="valid-feedback">
-                <svg xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        class="bi bi-person-check-fill"
-                        viewBox="0 0 16 16">
-                    <path fill-rule="evenodd"
-                            d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
-                    <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                </svg>
-            </div>
-            <div id="priceValidation" class="invalid-feedback">
-                invaild password
+                                <input type="password"
+                                        class="form-control"
+                                        placeholder="password"
+                                        id="password"
+                                        aria-label="password"
+                                        aria-describedby="password-label"
+                                        name="password" required>
+                                <div class="valid-feedback">
+                                    <svg xmlns="http://www.w3.org/2000/svg"
+                                            width="16"
+                                            height="16"
+                                            fill="currentColor"
+                                            class="bi bi-person-check-fill"
+                                            viewBox="0 0 16 16">
+                                        <path fill-rule="evenodd"
+                                                d="M15.854 5.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 0 1 .708-.708L12.5 7.793l2.646-2.647a.5.5 0 0 1 .708 0z" />
+                                        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
+                                    </svg>
+                                </div>
+                                <div id="priceValidation" class="invalid-feedback">
+                                    invaild password
+                                </div>
+                            </div>
+                        </div>
+                        <button class="btn btn-dark btn-block text-white">Login</button>
+                    </form>
+
+                </div>
             </div>
         </div>
     </div>
-    <button class="btn btn-dark text-white">Login</button>
-</form>
+</div>
 
 
