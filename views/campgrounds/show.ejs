@@ -91,7 +91,9 @@
                 </div>
             <% } %>
 
-            <div class="card-footer text-muted"> 2 days ago</div>
+            <div class="card-footer text-muted">
+                <div id='map'></div>
+            </div>
         </div>
 
     </div>
@@ -101,3 +103,9 @@
         <%- include('../reviews/index.ejs') %>
     </div>
 </div>
+
+<script>
+  const mapToken = '<%- process.env.MAPBOX_TOKEN %>';
+  const campground = <%- JSON.stringify(campground) %>
+</script>
+<script src="/javascripts/showPageMap.js"></script>

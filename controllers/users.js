@@ -38,7 +38,7 @@ module.exports.register = async (req, res, next) => {
 
 module.exports.login = (req, res) => {
 
-  const redirectUrl = req.session.returnTo || '/campgrounds';
+  const redirectUrl = req.session.returnTo || '/';
   delete req.session.returnTo;
 
   req.flash('success', 'welcome back');
@@ -49,7 +49,7 @@ module.exports.logout = (req, res) => {
   req.logout();
   req.flash('success', 'Goodbye!');
 
-  res.redirect('/campgrounds');
+  res.redirect('/');
 }
 
 module.exports.renderLoginForm = (req, res) => {

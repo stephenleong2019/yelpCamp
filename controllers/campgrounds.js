@@ -1,5 +1,11 @@
 const Campground = require('../models/campground');
 const { cloudinary } = require('../cloudinary');
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const countryList = require('country-list');
+
+const mapBoxToken = process.env.MAPBOX_TOKEN;
+
+const geocoder = mbxGeocoding({ accessToken: mapBoxToken });
 
 module.exports.index = async (req, res) => {
 
@@ -9,14 +15,24 @@ module.exports.index = async (req, res) => {
 };
 
 
-module.exports.renderNewForm = (req, res) => {
+module.exports.renderNewForm = async (req, res) => {
 
-  res.render('campgrounds/new');
+  const countries = await countryList.getNames();
+
+  res.render('campgrounds/new', { countries });
 };
 
 module.exports.createCampground = async (req, res) => {
 
+  const { location } = req.body.campground;
+
+  const geoData = await geocoder.forwardGeocode({
+    query: location,
+    limit: 1,
+  }).send();
+
   const campground = new Campground(req.body.campground);
+  campground.geometry = geoData.body.features[0].geometry;
   campground.images = req.files.map(file => ({
     url: file.path,
     filename: file.filename,
@@ -60,12 +76,23 @@ module.exports.renderEditForm = async (req, res) => {
 
   const campground = await Campground.findById(id);
 
-  res.render('campgrounds/edit', { campground });
+  const countries = await countryList.getNames();
+
+  res.render('campgrounds/edit', { campground,  countries});
 };
 
 module.exports.updateCampground = async (req, res) => {
 
   const { id } = req.params;
+
+  const { location } = req.body.campground;
+
+  const geoData = await geocoder.forwardGeocode({
+    query: location,
+    limit: 1,
+  }).send();
+
+  req.body.campground.geometry = geoData.body.features[0].geometry;
 
   const campground = await Campground.findByIdAndUpdate(
     id,
